@@ -35,8 +35,20 @@ function App() {
   const updateTaskItem = async (id, updatedTask) => {
     try {
       const { data } = await updateTask(id, updatedTask);
+      // Update the tasks state with the updated task
       setTasks(tasks.map((task) => (task._id === id ? data : task)));
-      toast.success('Task updated successfully');
+      // Find the original task from the current state before it was updated
+      const originalTask = tasks.find((task) => task._id === id);
+      // Check if the title remains unchanged and task is completed or not
+      if (originalTask.title === updatedTask.title) {
+        if (data.completed) {
+          toast.success(`Task "${data.title}" completed successfully!`);
+        } else {
+          toast.warning(`Task "${data.title}" is not completed yet.`);
+        }
+      } else {
+        toast.info(`Task "${data.title}" updated successfully!`);
+      } 
     } catch (error) {
       toast.error('Failed to update task');
     }
