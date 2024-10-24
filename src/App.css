@@ -1,0 +1,263 @@
+/* Reset and custom properties */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --icon-color:rgb(12, 10, 10);
+  --background: #ecf0f1;
+  --card-bg: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* General styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* App container */
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* Header styling */
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Task list container */
+.task-list {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Task item styling */
+.task-item {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow);
+  transform-origin: center;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.task-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.task-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--secondary-color);
+  transform: scaleY(0);
+  transition: var(--transition);
+}
+
+.task-item:hover::before {
+  transform: scaleY(1);
+}
+
+/* Task info and controls */
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-info input[type="checkbox"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+
+}
+
+.task-info input[type="checkbox"]:checked {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  position: relative;
+}
+
+.task-info input[type="checkbox"]:checked::before {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.task-info span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.task-info .completed {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Edit input styling */
+.edit-input {
+  width: 100%;
+  font-size: 1.1rem;
+  padding:5px 5px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.edit-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+/* Task actions */
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.task-actions button {
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+.task-actions button:hover {
+  color: var(--accent-color);
+  background: rgba(231, 76, 60, 0.1);
+}
+
+/* Add task form */
+form {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  gap: 1rem;
+}
+
+form input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  color: white;
+}
+
+form input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+form button {
+  padding: 1rem 2rem;
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+form button:hover {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .App {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  form button {
+    width: 100%;
+  }
+
+  .task-item {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+}
